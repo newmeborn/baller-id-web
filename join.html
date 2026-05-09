@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join Match · Baller.ID</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0706;
+      color: #e9e4dd;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .logo span { color: #2ee07a; }
+    .tagline {
+      font-size: 13px;
+      color: #5a5046;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: #100e0b;
+      border: 1px solid #1e1a14;
+      border-radius: 20px;
+      padding: 28px 24px;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+    }
+    .icon { font-size: 44px; margin-bottom: 16px; }
+    h1 { font-size: 22px; font-weight: 900; margin-bottom: 8px; }
+    .sub {
+      font-size: 14px;
+      color: #8a8076;
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      margin-bottom: 12px;
+      letter-spacing: 0.3px;
+    }
+    .btn-primary {
+      background: #2ee07a;
+      color: #0a0706;
+    }
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid #1e1a14;
+      color: #8a8076;
+      font-size: 13px;
+      padding: 13px;
+    }
+    .stores {
+      display: flex;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .stores a {
+      flex: 1;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid #1e1a14;
+      margin: 20px 0;
+    }
+    .install-label {
+      font-size: 11px;
+      color: #5a5046;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">Baller<span>.</span>ID</div>
+  <div class="tagline">YOUR DIGITAL FOOTBALL IDENTITY</div>
+
+  <div class="card">
+    <div class="icon">⚽</div>
+    <h1>You're invited to a match</h1>
+    <p class="sub">
+      Open the Baller.ID app to see the teams and choose your side.
+    </p>
+
+    <a id="open-app" class="btn btn-primary" href="#">Open in Baller.ID</a>
+
+    <hr class="divider" />
+
+    <div class="install-label">DON'T HAVE THE APP?</div>
+    <div class="stores">
+      <a href="https://play.google.com/store/apps/details?id=app.ballerid" class="btn btn-secondary">
+        ▶ Google Play
+      </a>
+      <a href="https://apps.apple.com/app/baller-id/id6746693501" class="btn btn-secondary">
+         App Store
+      </a>
+    </div>
+  </div>
+
+  <script>
+    var pathParts = window.location.pathname.split('/').filter(Boolean);
+    var matchId = pathParts[pathParts.length - 1] || '';
+
+    if (matchId && matchId !== 'join') {
+      var customScheme = 'ballerid://match/join/' + matchId;
+      // Intent URL: works with and without user gesture on Chrome Android
+      var intentUrl = 'intent://match/join/' + matchId +
+        '#Intent;scheme=ballerid;package=app.ballerid' +
+        ';S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dapp.ballerid;end';
+
+      document.getElementById('open-app').href = intentUrl;
+
+      // Auto-attempt on Android, custom scheme on iOS/others
+      var isAndroid = /android/i.test(navigator.userAgent);
+      setTimeout(function () {
+        window.location.href = isAndroid ? intentUrl : customScheme;
+      }, 300);
+    } else {
+      document.getElementById('open-app').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

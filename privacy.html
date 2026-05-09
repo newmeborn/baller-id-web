@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Baller.ID</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0706;
+      color: #e9e4dd;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      padding: 48px 24px;
+    }
+    .container { max-width: 680px; margin: 0 auto; }
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 48px;
+    }
+    .logo-img { width: 48px; height: 48px; border-radius: 12px; }
+    .logo-name { font-size: 18px; font-weight: 900; color: #e9e4dd; text-decoration: none; }
+    h1 { font-size: 28px; font-weight: 900; margin-bottom: 8px; }
+    .updated { font-size: 12px; color: #5a5046; letter-spacing: 0.5px; margin-bottom: 40px; }
+    h2 { font-size: 14px; font-weight: 800; letter-spacing: 1px; color: #2ee07a; margin: 36px 0 12px; text-transform: uppercase; }
+    p { font-size: 15px; color: #a09890; line-height: 1.7; margin-bottom: 12px; }
+    ul { padding-left: 20px; margin-bottom: 12px; }
+    li { font-size: 15px; color: #a09890; line-height: 1.7; margin-bottom: 4px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+    th { font-size: 11px; font-weight: 800; letter-spacing: 0.8px; color: #5a5046; text-align: left; padding: 8px 0; text-transform: uppercase; border-bottom: 1px solid #1e1a16; }
+    td { font-size: 14px; color: #a09890; padding: 10px 0; border-bottom: 1px solid #1a1612; vertical-align: top; }
+    td:first-child { color: #e9e4dd; width: 30%; padding-right: 16px; }
+    a { color: #2ee07a; text-decoration: none; }
+    .back { display: inline-block; font-size: 13px; font-weight: 700; color: #5a5046; margin-top: 48px; }
+    .back:hover { color: #2ee07a; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="logo-row">
+      <img src="./app_icon.png" alt="Baller.ID" class="logo-img" />
+      <a href="/" class="logo-name">Baller.ID</a>
+    </div>
+
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: 9 May 2026</p>
+
+    <p>Baller.ID ("we", "our", or "us") built the Baller.ID app as a free service for tracking football stats and building your digital player identity. This policy explains what data we collect, why we collect it, and how you can control it.</p>
+
+    <h2>Data We Collect</h2>
+    <table>
+      <tr><th>Data</th><th>Why we collect it</th></tr>
+      <tr><td>Email address</td><td>Account creation and login. Not shared with other players.</td></tr>
+      <tr><td>Display name, position, jersey number</td><td>Your public player profile and match card.</td></tr>
+      <tr><td>Profile photo</td><td>Displayed on your player card. Processed for background removal (see Third Parties below).</td></tr>
+      <tr><td>Match participation and stats (goals, assists, saves)</td><td>Core product — powering your performance history and leaderboards.</td></tr>
+      <tr><td>Trust score, reputation score, archetype</td><td>Computed from match data to reflect your reliability and playing style. Never shared externally.</td></tr>
+      <tr><td>MVP and position votes</td><td>Peer recognition system. Votes are stored but individual votes are not visible to other players.</td></tr>
+      <tr><td>Device identifier</td><td>Stored locally (iOS Keychain / Android Secure Storage) so you can recover a guest account after reinstalling the app.</td></tr>
+      <tr><td>Push notification token</td><td>Delivering match invites and result notifications. Only used to send you notifications you have opted into.</td></tr>
+    </table>
+
+    <h2>Data We Do Not Collect</h2>
+    <ul>
+      <li>Location — match location is optional and stored only with the match record, not used to track you.</li>
+      <li>Contacts — the app does not access your contacts.</li>
+      <li>Precise GPS or movement data.</li>
+      <li>Payment information — the app is free.</li>
+    </ul>
+
+    <h2>Third-Party Services</h2>
+    <table>
+      <tr><th>Service</th><th>What we send</th><th>Purpose</th></tr>
+      <tr>
+        <td>Supabase</td>
+        <td>All user and match data</td>
+        <td>Database and authentication. Data is stored on Supabase-managed servers.</td>
+      </tr>
+      <tr>
+        <td>PostHog</td>
+        <td>User ID, email, anonymised events (e.g. "match_created")</td>
+        <td>Product analytics so we can understand how the app is used and improve it. No advertising use.</td>
+      </tr>
+      <tr>
+        <td>remove.bg</td>
+        <td>Your profile photo (image data)</td>
+        <td>Automatically removes the background from your avatar. The image is processed and not stored by remove.bg beyond the request.</td>
+      </tr>
+      <tr>
+        <td>HuggingFace</td>
+        <td>Your profile photo (image data)</td>
+        <td>Checks that the photo contains a person before processing. Image is not retained.</td>
+      </tr>
+      <tr>
+        <td>Expo / Firebase FCM</td>
+        <td>Push notification token</td>
+        <td>Delivering push notifications to your device.</td>
+      </tr>
+    </table>
+
+    <p>We do not sell your data to any third party.</p>
+
+    <h2>Data Retention</h2>
+    <p>Your account and all associated data are retained for as long as your account is active. If you delete your account:</p>
+    <ul>
+      <li>You have a 30-day grace period during which you can reactivate your account by logging back in.</li>
+      <li>After 30 days, your personal information (name, email, photo, push token, device ID) is permanently deleted.</li>
+      <li>Historical match records are preserved in anonymised form (shown as "Deleted Player") to maintain the integrity of other players' match histories.</li>
+    </ul>
+
+    <h2>Your Rights</h2>
+    <ul>
+      <li><strong style="color:#e9e4dd">Delete your account</strong> — available in the app under Settings → Delete Account.</li>
+      <li><strong style="color:#e9e4dd">Revoke notifications</strong> — disable at any time in your device's notification settings.</li>
+      <li><strong style="color:#e9e4dd">Revoke photo access</strong> — deny or revoke via your device's app permissions. You can still use the app without uploading a photo.</li>
+      <li><strong style="color:#e9e4dd">Request your data</strong> — email us and we will provide a copy of your stored data within 30 days.</li>
+    </ul>
+
+    <h2>Children</h2>
+    <p>Baller.ID is not directed at children under 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, contact us and we will delete it.</p>
+
+    <h2>Changes to This Policy</h2>
+    <p>We may update this policy from time to time. We will notify you of significant changes via an in-app notice. The "Last updated" date at the top of this page will always reflect the latest revision.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy or your data: <a href="mailto:vishnu.01vishu@gmail.com">vishnu.01vishu@gmail.com</a></p>
+
+    <a href="/" class="back">← Back to Baller.ID</a>
+
+  </div>
+</body>
+</html>
