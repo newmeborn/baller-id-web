@@ -6,45 +6,95 @@
   <title>Delete Account — Baller.ID</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #0a0a0a; color: #f0ebe3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 40px 24px; max-width: 680px; margin: 0 auto; line-height: 1.7; }
-    h1 { font-size: 28px; font-weight: 900; color: #fff; margin-bottom: 8px; }
-    h2 { font-size: 16px; font-weight: 800; color: #2ee07a; margin: 32px 0 8px; text-transform: uppercase; letter-spacing: 1px; }
-    p { color: #b0a89e; margin-bottom: 12px; }
-    ol, ul { color: #b0a89e; padding-left: 20px; margin-bottom: 12px; }
-    li { margin-bottom: 6px; }
-    .email-btn { display: inline-block; margin-top: 16px; background: #2ee07a; color: #021c0c; font-weight: 900; padding: 12px 24px; border-radius: 10px; text-decoration: none; font-size: 15px; }
-    .note { background: #111; border: 1px solid #222; border-radius: 10px; padding: 16px; margin-top: 24px; font-size: 13px; color: #6b6460; }
-    .back { display: inline-block; margin-bottom: 32px; color: #2ee07a; text-decoration: none; font-size: 13px; font-weight: 700; }
+    body {
+      background: #0a0706;
+      color: #e9e4dd;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      padding: 48px 24px;
+    }
+    .container { max-width: 680px; margin: 0 auto; }
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 48px;
+      text-decoration: none;
+    }
+    .logo-img { width: 48px; height: 48px; border-radius: 12px; }
+    .logo-name { font-size: 18px; font-weight: 900; color: #e9e4dd; text-decoration: none; }
+    h1 { font-size: 28px; font-weight: 900; margin-bottom: 8px; }
+    h2 { font-size: 14px; font-weight: 800; letter-spacing: 1px; color: #2ee07a; margin: 36px 0 12px; text-transform: uppercase; }
+    p { font-size: 15px; color: #a09890; line-height: 1.7; margin-bottom: 12px; }
+    ol, ul { padding-left: 20px; margin-bottom: 12px; }
+    li { font-size: 15px; color: #a09890; line-height: 1.7; margin-bottom: 6px; }
+    strong { color: #e9e4dd; }
+    a { color: #2ee07a; text-decoration: none; }
+    .email-btn {
+      display: inline-block;
+      margin-top: 16px;
+      background: #2ee07a;
+      color: #021c0c;
+      font-weight: 900;
+      padding: 12px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 15px;
+    }
+    .note {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 24px;
+      font-size: 13px;
+      color: #6b6460;
+    }
+    .back-link { display: inline-block; font-size: 13px; font-weight: 700; color: #5a5046; margin-top: 48px; }
+    .back-link:hover { color: #2ee07a; }
   </style>
 </head>
 <body>
-  <a href="/" class="back">← baller-id.netlify.app</a>
-  <h1>Delete Your Baller.ID Account</h1>
-  <p>You can request deletion of your account and all associated data at any time.</p>
+  <div class="container">
 
-  <h2>How to request deletion</h2>
-  <p>Send an email to our support address with your request:</p>
-  <ol>
-    <li>Email <strong>noreply@ballerid.in</strong> from the address linked to your account</li>
-    <li>Subject: <strong>Account Deletion Request</strong></li>
-    <li>Include your in-app display name so we can locate your account</li>
-  </ol>
-  <a href="mailto:noreply@ballerid.in?subject=Account%20Deletion%20Request" class="email-btn">Send Deletion Request</a>
+    <a href="/" class="logo-row">
+      <img src="./app_icon.png" alt="Baller.ID" class="logo-img" />
+      <span class="logo-name">Baller.ID</span>
+    </a>
 
-  <h2>What gets deleted</h2>
-  <ul>
-    <li>Your profile (name, jersey number, avatar)</li>
-    <li>Your match history and stats</li>
-    <li>Your votes and ratings</li>
-    <li>Your authentication credentials (email + password)</li>
-    <li>Your push notification token</li>
-  </ul>
+    <h1>Delete Your Account</h1>
+    <p>You can request deletion of your Baller.ID account and all associated data at any time. No questions asked.</p>
 
-  <h2>Retention period</h2>
-  <p>Deletion is processed within <strong>30 days</strong> of your request. Aggregated, anonymised match statistics (e.g. team scores) may be retained for app integrity but cannot be linked back to you.</p>
+    <h2>How to request deletion</h2>
+    <p>Send an email from the address linked to your account:</p>
+    <ol>
+      <li>Email <strong>noreply.ballerid@gmail.com</strong></li>
+      <li>Subject: <strong>Account Deletion Request</strong></li>
+      <li>Include your in-app display name so we can locate your account quickly</li>
+    </ol>
+    <a href="mailto:noreply.ballerid@gmail.com?subject=Account%20Deletion%20Request" class="email-btn">Send Deletion Request</a>
 
-  <div class="note">
-    <strong>Note:</strong> Deleting your account is permanent and cannot be undone. Your player card, points, and ranking will be removed from all leaderboards.
+    <h2>What gets deleted</h2>
+    <ul>
+      <li>Your profile — name, jersey number, position, avatar</li>
+      <li>Your match history and stats (goals, assists, saves)</li>
+      <li>Your votes, ratings, and reputation score</li>
+      <li>Your login credentials (email + password)</li>
+      <li>Your push notification token</li>
+    </ul>
+
+    <h2>Retention period</h2>
+    <p>We process deletion requests within <strong>30 days</strong>. Aggregated, anonymised match data (e.g. team scores) may be retained for app integrity purposes but cannot be linked back to you after deletion.</p>
+
+    <h2>Questions?</h2>
+    <p>Contact us at <a href="mailto:noreply.ballerid@gmail.com">noreply.ballerid@gmail.com</a> for any questions about your data.</p>
+
+    <div class="note">
+      ⚠️ Account deletion is permanent and cannot be undone. Your player card, points, and leaderboard position will be permanently removed.
+    </div>
+
+    <a href="/" class="back-link">← Back to Baller.ID</a>
+
   </div>
 </body>
 </html>
