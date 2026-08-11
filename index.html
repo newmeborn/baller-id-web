@@ -75,6 +75,28 @@
       transition: transform .2s ease, box-shadow .2s ease;
     }
     .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(46,224,122,0.35); }
+    .nav-links { display: flex; align-items: center; gap: 30px; }
+    .nav-links a { color: #cfc8c0; font-size: 14px; font-weight: 600; text-decoration: none; transition: color .2s ease; }
+    .nav-links a:hover { color: var(--green); }
+    @media (max-width: 760px) { .nav-links { display: none; } }
+
+    /* ---------- Store badges (App Store + Google Play) ---------- */
+    .store-row { display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap; }
+    .store-row .gp-badge { height: 74px; display: block; transition: transform .2s ease; }  /* taller to offset the Play badge's built-in padding so it visually matches the App Store badge */
+    .store-row .gp-badge:hover { transform: translateY(-2px); }
+    .appstore-badge {
+      position: relative;
+      display: inline-flex; align-items: center; gap: 10px;
+      height: 60px; padding: 0 18px; border-radius: 12px;
+      background: #000; border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; text-decoration: none;
+    }
+    .appstore-badge .apple { flex-shrink: 0; }
+    .ab-text { display: flex; flex-direction: column; line-height: 1.12; text-align: left; }
+    .ab-text small { font-size: 10px; font-weight: 500; }
+    .ab-text strong { font-size: 19px; font-weight: 600; letter-spacing: -0.3px; }
+    .appstore-badge { transition: transform .2s ease, border-color .2s ease; }
+    .appstore-badge:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.4); }
 
     /* ---------- Hero ---------- */
     .hero {
@@ -140,6 +162,64 @@
       border: 1px solid rgba(255,255,255,0.08);
     }
     .btn-ghost:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+
+    /* Hero two-column: copy + phone pair */
+    .hero-inner { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; max-width: 1080px; width: 100%; margin: 0 auto 16px; }
+    .hero-copy { text-align: left; }
+    .hero-copy .hero-title, .hero-copy .hero-sub { text-align: left; margin-left: 0; margin-right: 0; }
+    .hero-copy .badge { margin-bottom: 22px; }
+    .hero-copy .store-row { justify-content: flex-start; margin-top: 4px; }
+    .hero-phones { position: relative; display: flex; justify-content: center; align-items: center; min-height: 580px; }
+    .hero-phones .phone-mock { width: 246px; position: absolute; }
+    .hero-phones .phone-a { transform: rotate(-4deg) translateX(-68px); z-index: 2; }
+    .hero-phones .phone-b { transform: rotate(5deg) translateX(72px) translateY(34px); z-index: 1; }
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 26px; }
+      .hero-copy { text-align: center; }
+      .hero-copy .hero-title, .hero-copy .hero-sub { text-align: center; margin-left: auto; margin-right: auto; }
+      .hero-copy .store-row { justify-content: center; }
+      .hero-phones { min-height: 440px; }
+    }
+    @media (max-width: 420px) {
+      .hero-phones .phone-a { transform: rotate(-4deg) translateX(-44px) scale(.72); }
+      .hero-phones .phone-b { transform: rotate(5deg) translateX(48px) translateY(30px) scale(.72); }
+    }
+
+    /* Tier progression pathway — replaces the card rail */
+    .tier-path { max-width: 1000px; margin: 44px auto 0; width: 100%; padding: 0 10px; }
+    .tier-path-head { text-align: center; margin-bottom: 38px; }
+    .tp-eyebrow { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 2px; color: var(--green); margin-bottom: 12px; }
+    .tp-title { font-size: clamp(22px, 3.4vw, 32px); font-weight: 900; letter-spacing: -0.8px; margin-bottom: 12px; }
+    .tp-sub { font-size: 15px; color: var(--muted); line-height: 1.6; max-width: 560px; margin: 0 auto; }
+    .tier-track { position: relative; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+    .tier-line { position: absolute; top: 33px; left: 9%; right: 9%; height: 3px; border-radius: 3px;
+      background: linear-gradient(90deg, var(--t-rookie), var(--t-bronze), var(--t-silver), var(--t-gold), var(--t-elite)); opacity: 0.45; }
+    .tier-node { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .tn-dot {
+      width: 66px; height: 66px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(160deg, var(--top), var(--bot));
+      border: 2px solid var(--accent);
+      margin-bottom: 14px; font-size: 24px; color: var(--accent);
+      box-shadow: 0 8px 24px -8px rgba(0,0,0,0.7);
+    }
+    .tier-node.rookie { --top: var(--t-rookie-top); --bot: var(--t-rookie-bot); --accent: var(--t-rookie); }
+    .tier-node.bronze { --top: var(--t-bronze-top); --bot: var(--t-bronze-bot); --accent: var(--t-bronze); }
+    .tier-node.silver { --top: var(--t-silver-top); --bot: var(--t-silver-bot); --accent: var(--t-silver); }
+    .tier-node.gold   { --top: var(--t-gold-top);   --bot: var(--t-gold-bot);   --accent: var(--t-gold); }
+    .tier-node.elite  { --top: var(--t-elite-top);  --bot: var(--t-elite-bot);  --accent: var(--t-elite); }
+    .tier-node.is-current .tn-dot { box-shadow: 0 0 0 4px rgba(46,224,122,0.18), 0 8px 30px -6px rgba(46,224,122,0.6); }
+    .tn-name { font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #f0ebe3; }
+    .tn-range { font-size: 11px; font-weight: 700; color: var(--muted); margin-top: 3px; }
+    .tn-tag { margin-top: 8px; font-size: 8px; font-weight: 900; letter-spacing: 1px; color: var(--green);
+      background: var(--green-soft); border: 1px solid rgba(46,224,122,0.3); padding: 3px 8px; border-radius: 999px; }
+    @media (max-width: 620px) {
+      .tn-dot { width: 50px; height: 50px; font-size: 18px; margin-bottom: 10px; }
+      .tier-line { top: 25px; }
+      .tn-name { font-size: 10px; letter-spacing: 0.5px; }
+      .tn-range { font-size: 9px; }
+      .tn-tag { display: none; }
+    }
 
     /* ---------- Horizontal card carousel ---------- */
     .card-rail-wrap { width: 100%; position: relative; padding: 8px 0 4px; overflow: hidden; }
@@ -328,6 +408,81 @@
     .section-title { font-size: clamp(30px, 5vw, 48px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 16px; max-width: 720px; }
     .section-sub { font-size: 16px; color: var(--muted); max-width: 540px; line-height: 1.6; margin-bottom: 48px; }
 
+    /* ── Problem section (the wedge) ─────────────────────────────────────── */
+    .problem { text-align: center; }
+    .problem .section-eyebrow,
+    .problem .section-title { margin-left: auto; margin-right: auto; }
+    .problem .section-sub { max-width: 620px; margin: 0 auto 34px; }
+    .gone-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; max-width: 780px; margin: 0 auto; }
+    .gone-chip {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 11px 17px; border-radius: 999px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      font-size: 14px; font-weight: 700; color: #6f6862;
+    }
+    .gone-emoji { font-size: 16px; filter: grayscale(0.7) opacity(0.75); }
+    .gone-txt { text-decoration: line-through; text-decoration-color: rgba(231,76,60,0.6); text-decoration-thickness: 2px; }
+    .gone-tag { font-size: 9px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; color: #e74c3c; opacity: 0.85; }
+    .problem-turn { max-width: 620px; margin: 40px auto 0; }
+    .turn-line { display: block; font-size: clamp(22px, 4vw, 30px); font-weight: 900; letter-spacing: -0.5px; color: var(--green); margin-bottom: 12px; }
+    .problem-turn p { font-size: 16px; color: var(--muted); line-height: 1.6; margin: 0 auto; }
+
+    /* ── FAQ ─────────────────────────────────────────────────────────────── */
+    .faq { max-width: 780px; }
+    .faq-head { text-align: center; }
+    .faq-head .section-eyebrow, .faq-head .section-title { margin-left: auto; margin-right: auto; }
+    .faq-head .section-title { margin-bottom: 40px; }
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: var(--bg-2); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px; overflow: hidden; transition: border-color .2s ease;
+    }
+    .faq-item[open] { border-color: var(--green-soft); }
+    .faq-item summary {
+      list-style: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 18px 20px; font-size: 16px; font-weight: 800; color: #f0ebe3;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-chev { color: var(--green); font-size: 13px; transition: transform .25s ease; flex-shrink: 0; }
+    .faq-item[open] .faq-chev { transform: rotate(180deg); }
+    .faq-a { padding: 0 20px 18px; color: var(--muted); font-size: 14.5px; line-height: 1.65; }
+    .faq-a a { color: var(--green); text-decoration: none; }
+
+    /* ── Phone mockups (prototype screenshots) ───────────────────────────── */
+    .showcase { text-align: center; }
+    .showcase .section-eyebrow, .showcase .section-title, .showcase .section-sub { margin-left: auto; margin-right: auto; }
+    .phone-row { display: flex; gap: 32px; justify-content: center; align-items: center; flex-wrap: wrap; }
+    .phone-mock {
+      position: relative; width: 250px; aspect-ratio: 9 / 19.5;
+      border-radius: 38px; padding: 9px;
+      background: linear-gradient(160deg, #1a1512, #0c0908);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 30px 60px -22px rgba(0,0,0,0.85), inset 0 0 0 2px rgba(255,255,255,0.03);
+    }
+    .phone-mock.featured { transform: scale(1.06); z-index: 2; }
+    @media (max-width: 820px) { .phone-mock.featured { transform: none; } }
+    .phone-notch { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); width: 86px; height: 20px; background: #000; border-radius: 999px; z-index: 3; }
+    .phone-screen {
+      width: 100%; height: 100%; border-radius: 30px; overflow: hidden;
+      background: #060504; display: flex; align-items: center; justify-content: center;
+    }
+    .phone-screen img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .phone-ph {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+      color: var(--muted); text-align: center;
+      border: 1.5px dashed rgba(255,255,255,0.13); border-radius: 22px;
+      margin: 14px; width: calc(100% - 28px); height: calc(100% - 28px);
+    }
+    .phone-ph .pi { font-size: 26px; opacity: 0.75; }
+    .phone-ph strong { font-weight: 800; font-size: 14px; color: #cfc8c0; }
+    .phone-ph small { font-size: 11px; opacity: 0.55; }
+
+    /* How-it-works two-column (phone + steps) */
+    .how-grid { display: grid; grid-template-columns: 290px 1fr; gap: 56px; align-items: center; margin-top: 24px; }
+    .how-phone { display: flex; justify-content: center; }
+    @media (max-width: 860px) { .how-grid { grid-template-columns: 1fr; gap: 36px; } }
+
     /* ---------- Formation pitch ---------- */
     .pitch-wrap {
       max-width: 760px; margin: 0 auto;
@@ -396,36 +551,59 @@
     .pitch-arc.bottom { bottom: 14%; border-bottom: 0; border-radius: 999px 999px 0 0; }
 
     /* Mini cards on pitch */
-    .mini {
+    /* Broadcast-style dots — jersey number in a tier-ringed circle, name below.
+       Mirrors the app's live formation view (MatchViewScreen PitchToken). */
+    .dot {
       position: absolute;
-      width: 64px; height: 80px;
       transform: translate(-50%, -50%);
-      border-radius: 8px;
-      padding: 5px 4px 4px;
       display: flex; flex-direction: column; align-items: center;
-      background: linear-gradient(160deg, var(--top), var(--bot));
-      border: 1px solid var(--accent);
-      box-shadow: 0 8px 20px -8px rgba(0,0,0,0.7), 0 0 12px -3px var(--soft);
-      animation: miniIn .6s cubic-bezier(.2,.8,.2,1) backwards;
+      animation: dotIn .6s cubic-bezier(.2,.8,.2,1) backwards;
     }
-    @keyframes miniIn { from { opacity: 0; transform: translate(-50%, -40%) scale(.85); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
-    .mini.elite  { --top: var(--t-elite-top);  --bot: var(--t-elite-bot);  --accent: var(--t-elite);  --soft: rgba(46,224,122,0.4); }
-    .mini.gold   { --top: var(--t-gold-top);   --bot: var(--t-gold-bot);   --accent: var(--t-gold);   --soft: rgba(242,195,90,0.4); }
-    .mini.silver { --top: var(--t-silver-top); --bot: var(--t-silver-bot); --accent: var(--t-silver); --soft: rgba(205,214,223,0.35); }
-    .mini.bronze { --top: var(--t-bronze-top); --bot: var(--t-bronze-bot); --accent: var(--t-bronze); --soft: rgba(201,138,91,0.35); }
-    .mini.rookie { --top: var(--t-rookie-top); --bot: var(--t-rookie-bot); --accent: var(--t-rookie); --soft: rgba(168,158,146,0.3); }
-    .mini-top { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; padding: 0 2px; }
-    .mini-rating { font-size: 14px; font-weight: 900; color: #fff; line-height: 1; }
-    .mini-pos { font-size: 7px; font-weight: 800; letter-spacing: 1px; color: var(--accent); margin-top: 1px; }
-    .mini-circle {
-      width: 26px; height: 26px; border-radius: 50%;
-      background: rgba(0,0,0,0.45);
-      border: 1.5px solid var(--accent);
+    @keyframes dotIn { from { opacity: 0; transform: translate(-50%, -40%) scale(.8); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+    .dot.elite  { --accent: var(--t-elite);  --soft: rgba(46,224,122,0.55); }
+    .dot.gold   { --accent: var(--t-gold);   --soft: rgba(242,195,90,0.55); }
+    .dot.silver { --accent: var(--t-silver); --soft: rgba(205,214,223,0.5); }
+    .dot.bronze { --accent: var(--t-bronze); --soft: rgba(201,138,91,0.5); }
+    .dot.rookie { --accent: var(--t-rookie); --soft: rgba(168,158,146,0.45); }
+    .dot-circle {
+      position: relative;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: #e8e8e8;
+      border: 2.5px solid var(--accent);
       display: flex; align-items: center; justify-content: center;
-      margin-top: 3px;
-      font-size: 9px; font-weight: 900; color: #fff;
+      font-size: 18px; font-weight: 900; color: #111; letter-spacing: -0.5px;
+      box-shadow: 0 3px 8px -1px rgba(0,0,0,0.55), 0 0 16px -4px var(--soft);
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
     }
-    .mini-name { margin-top: 2px; font-size: 7px; font-weight: 900; letter-spacing: 0.5px; color: #fff; }
+    .dot-cap {
+      position: absolute; top: -4px; left: -4px;
+      width: 16px; height: 16px; border-radius: 4px;
+      background: var(--t-gold); color: #000;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 900;
+      border: 1.5px solid #0a2a1a;
+    }
+    .dot-name {
+      margin-top: 5px; font-size: 10px; font-weight: 800; color: #fff;
+      letter-spacing: 0.3px; white-space: nowrap;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    }
+    /* Drag-to-reposition — grab a player and slide them, like planning your line-up. */
+    .dot { cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+    .dot.dragging { z-index: 30; cursor: grabbing; }
+    .dot.dragging .dot-name { color: var(--t-elite); }
+    .dot.dragging .dot-circle {
+      transform: scale(1.16);
+      border-color: var(--t-elite);
+      box-shadow: 0 10px 24px -4px rgba(0,0,0,0.65), 0 0 26px -2px rgba(46,224,122,0.9);
+    }
+    .pitch-hint {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      margin: 0 auto 10px; padding: 5px 12px; width: fit-content;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+      color: #a7f3c8; background: rgba(46,224,122,0.10);
+      border: 1px solid rgba(46,224,122,0.22); border-radius: 999px;
+    }
 
     /* Team identity is shown by pitch half + header badges — no per-card hue shift.
        Match the in-app match-view: both teams use the same tier palette. */
@@ -606,7 +784,6 @@
     .final-cta { text-align: center; padding: 120px 24px; position: relative; }
     .final-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, var(--green-soft), transparent 60%); z-index: -1; }
     .final-cta h2 { font-size: clamp(36px, 7vw, 68px); font-weight: 900; letter-spacing: -2.5px; line-height: 1; margin-bottom: 22px; }
-    .final-cta .coming-soon { margin-top: 20px; font-size: 11px; color: var(--dim); font-weight: 800; letter-spacing: 2px; }
 
     footer { padding: 40px 24px; text-align: center; border-top: 1px solid rgba(255,255,255,0.04); font-size: 12px; color: var(--dim); }
     footer a { color: var(--muted); text-decoration: none; margin: 0 12px; transition: color .2s ease; }
@@ -623,9 +800,9 @@
       .pcard { width: 200px; height: 300px; }
       .pcard-rating { font-size: 38px; }
       .pcard-avatar { width: 70px; height: 70px; font-size: 22px; }
-      .mini { width: 52px; height: 64px; }
-      .mini-circle { width: 22px; height: 22px; font-size: 8px; }
-      .mini-rating { font-size: 12px; }
+      .dot-circle { width: 36px; height: 36px; font-size: 14px; }
+      .dot-cap { width: 14px; height: 14px; font-size: 8px; }
+      .dot-name { font-size: 9px; }
       .pitch-wrap { padding: 14px; }
     }
   </style>
@@ -639,164 +816,90 @@
       <img src="./app_icon.png" alt="Baller.ID" />
       <div>Baller<span>.ID</span></div>
     </a>
-    <a href="https://play.google.com/store/apps/details?id=app.ballerid" class="nav-cta" target="_blank" rel="noopener">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:5px"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.197 12l2.501-2.491zM5.864 2.658L16.802 8.99l-2.302 2.302L5.864 2.658z"/></svg>
-      Google Play
-    </a>
+    <div class="nav-links">
+      <a href="#how">How it Works</a>
+      <a href="#formation">Live View</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="#get-app" class="nav-cta">Get the App</a>
   </nav>
 
   <section class="hero">
-    <div class="badge"><span class="dot"></span> NOW ON GOOGLE PLAY</div>
-    <h1 class="hero-title">
-      Your football identity,<br/>
-      <span class="grad">earned on the pitch.</span>
-    </h1>
-    <p class="hero-sub">
-      Track every match. Build your player card. Climb the ranks.
-      Prove what kind of baller you really are.
-    </p>
-    <div class="cta-row">
-      <a href="https://play.google.com/store/apps/details?id=app.ballerid" target="_blank" rel="noopener">
-        <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" style="height:60px;display:block;" />
-      </a>
-      <a href="#how" class="btn btn-ghost">See how it works</a>
-    </div>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <h1 class="hero-title">
+          Your football identity,<br/>
+          <span class="grad">earned on the pitch.</span>
+        </h1>
+        <p class="hero-sub">
+          Every match you play goes on the record. Build your card, climb the ranks,
+          and prove what kind of baller you really are — verified by the squad, impossible to fake.
+        </p>
+        <div class="store-row">
+          <a class="appstore-badge" href="https://apps.apple.com/app/id6795818143" target="_blank" rel="noopener" aria-label="Download on the App Store">
+            <svg class="apple" viewBox="0 0 384 512" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+            <span class="ab-text"><small>Download on the</small><strong>App Store</strong></span>
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=app.ballerid" target="_blank" rel="noopener">
+            <img class="gp-badge" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" />
+          </a>
+        </div>
+      </div>
 
-    <!-- Horizontal scrolling card carousel — ascending tier progression -->
-    <div class="card-rail-wrap">
-      <div class="card-rail" id="card-rail">
-
-        <!-- ROOKIE — day one -->
-        <div class="pcard rookie">
-          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-          <span class="foil"></span>
-          <div class="pcard-tier">ROOKIE</div>
-          <div class="pcard-top">
-            <div>
-              <div class="pcard-rating">–</div>
-              <div class="pcard-pos">NEW</div>
-            </div>
-            <div class="pcard-crest"></div>
-          </div>
-          <div class="pcard-center">
-            <div class="pcard-avatar">??</div>
-            <div class="pcard-name">YOU</div>
-            <div class="pcard-arch">DAY ONE. CARD UNWRITTEN.</div>
-          </div>
-          <div class="pcard-attrs">
-            <div class="pcard-attr"><span class="val">–</span><span class="lbl">ATK</span></div>
-            <div class="pcard-attr"><span class="val">–</span><span class="lbl">DEF</span></div>
-            <div class="pcard-attr"><span class="val">–</span><span class="lbl">REP</span></div>
+      <div class="hero-phones">
+        <div class="phone-mock phone-a">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <img src="./screens/card.png" alt="Your Baller.ID player card" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+            <div class="phone-ph" style="display:none"><span class="pi">🪪</span><strong>Your Card</strong><small>save screens/card.png</small></div>
           </div>
         </div>
-
-        <!-- BRONZE -->
-        <div class="pcard bronze">
-          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-          <span class="foil"></span>
-          <div class="pcard-tier">BRONZE</div>
-          <div class="pcard-top">
-            <div>
-              <div class="pcard-rating">58</div>
-              <div class="pcard-pos">GK</div>
-            </div>
-            <div class="pcard-crest"></div>
-          </div>
-          <div class="pcard-center">
-            <div class="pcard-avatar">RM</div>
-            <div class="pcard-name">RILEY M.</div>
-            <div class="pcard-arch">SHOWS UP. THAT'S HALF THE GAME.</div>
-          </div>
-          <div class="pcard-attrs">
-            <div class="pcard-attr"><span class="val">42</span><span class="lbl">ATK</span><div class="bar"><i style="width:42%"></i></div></div>
-            <div class="pcard-attr"><span class="val">78</span><span class="lbl">DEF</span><div class="bar"><i style="width:78%"></i></div></div>
-            <div class="pcard-attr"><span class="val">64</span><span class="lbl">REP</span><div class="bar"><i style="width:64%"></i></div></div>
+        <div class="phone-mock phone-b">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <img src="./screens/how.png" alt="How Baller.ID works" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+            <div class="phone-ph" style="display:none"><span class="pi">⚽</span><strong>Earn it on the pitch</strong><small>save screens/how.png</small></div>
           </div>
         </div>
-
-        <!-- SILVER -->
-        <div class="pcard silver">
-          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-          <span class="foil"></span>
-          <div class="pcard-tier">SILVER</div>
-          <div class="pcard-top">
-            <div>
-              <div class="pcard-rating">71</div>
-              <div class="pcard-pos">DEF</div>
-            </div>
-            <div class="pcard-crest"></div>
-          </div>
-          <div class="pcard-center">
-            <div class="pcard-avatar">SP</div>
-            <div class="pcard-name">SAM P.</div>
-            <div class="pcard-arch">HARD TO BENCH. EASY TO TRUST.</div>
-          </div>
-          <div class="pcard-attrs">
-            <div class="pcard-attr"><span class="val">58</span><span class="lbl">ATK</span><div class="bar"><i style="width:58%"></i></div></div>
-            <div class="pcard-attr"><span class="val">88</span><span class="lbl">DEF</span><div class="bar"><i style="width:88%"></i></div></div>
-            <div class="pcard-attr"><span class="val">76</span><span class="lbl">REP</span><div class="bar"><i style="width:76%"></i></div></div>
-          </div>
-        </div>
-
-        <!-- GOLD -->
-        <div class="pcard gold">
-          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-          <span class="foil"></span>
-          <div class="pcard-tier">GOLD</div>
-          <div class="pcard-top">
-            <div>
-              <div class="pcard-rating">82</div>
-              <div class="pcard-pos">MID</div>
-            </div>
-            <div class="pcard-crest"></div>
-          </div>
-          <div class="pcard-center">
-            <div class="pcard-avatar">JR</div>
-            <div class="pcard-name">JORDAN R.</div>
-            <div class="pcard-arch">FIRST NAME ON THE TEAM SHEET.</div>
-          </div>
-          <div class="pcard-attrs">
-            <div class="pcard-attr"><span class="val">84</span><span class="lbl">ATK</span><div class="bar"><i style="width:84%"></i></div></div>
-            <div class="pcard-attr"><span class="val">80</span><span class="lbl">DEF</span><div class="bar"><i style="width:80%"></i></div></div>
-            <div class="pcard-attr"><span class="val">82</span><span class="lbl">REP</span><div class="bar"><i style="width:82%"></i></div></div>
-          </div>
-        </div>
-
-        <!-- ELITE -->
-        <div class="pcard elite">
-          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-          <span class="foil"></span>
-          <div class="pcard-tier">ELITE</div>
-          <div class="pcard-top">
-            <div>
-              <div class="pcard-rating">91</div>
-              <div class="pcard-pos">FWD</div>
-            </div>
-            <div class="pcard-crest"></div>
-          </div>
-          <div class="pcard-center">
-            <div class="pcard-avatar">AK</div>
-            <div class="pcard-name">ALEX K.</div>
-            <div class="pcard-arch">CARRIES THE SQUAD. OWNS THE CHAT.</div>
-          </div>
-          <div class="pcard-attrs">
-            <div class="pcard-attr"><span class="val">96</span><span class="lbl">ATK</span><div class="bar"><i style="width:96%"></i></div></div>
-            <div class="pcard-attr"><span class="val">72</span><span class="lbl">DEF</span><div class="bar"><i style="width:72%"></i></div></div>
-            <div class="pcard-attr"><span class="val">88</span><span class="lbl">REP</span><div class="bar"><i style="width:88%"></i></div></div>
-          </div>
-        </div>
-
       </div>
     </div>
 
-    <div class="swipe-hint">
-      <span>← SWIPE FROM ROOKIE TO ELITE</span>
-      <span class="arrow">→</span>
-    </div>
-    <div class="interact-hint">
-      <span class="ih-icon">📸</span> Add your photo &nbsp;·&nbsp;
-      <span class="ih-icon">✦</span> Tap to flip &nbsp;·&nbsp;
-      <span class="ih-icon">📤</span> Share your card
+    <!-- Tier progression pathway -->
+    <div class="tier-path">
+      <div class="tier-path-head">
+        <span class="tp-eyebrow">THE CLIMB</span>
+        <h3 class="tp-title">Every match moves you up.</h3>
+        <p class="tp-sub">Start at Rookie. Earn your way to Elite — one honest game at a time. No shortcuts, no buying your way up.</p>
+      </div>
+      <div class="tier-track">
+        <div class="tier-line"></div>
+        <div class="tier-node rookie is-current">
+          <div class="tn-dot">○</div>
+          <div class="tn-name">ROOKIE</div>
+          <div class="tn-range">Day one</div>
+          <div class="tn-tag">YOU START HERE</div>
+        </div>
+        <div class="tier-node bronze">
+          <div class="tn-dot">✱</div>
+          <div class="tn-name">BRONZE</div>
+          <div class="tn-range">50–64</div>
+        </div>
+        <div class="tier-node silver">
+          <div class="tn-dot">◆</div>
+          <div class="tn-name">SILVER</div>
+          <div class="tn-range">65–74</div>
+        </div>
+        <div class="tier-node gold">
+          <div class="tn-dot">★</div>
+          <div class="tn-name">GOLD</div>
+          <div class="tn-range">75–84</div>
+        </div>
+        <div class="tier-node elite">
+          <div class="tn-dot">✦</div>
+          <div class="tn-name">ELITE</div>
+          <div class="tn-range">85+</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -807,6 +910,29 @@
     </div>
   </div>
 
+  <!-- The problem — the wedge -->
+  <section class="section problem" id="problem">
+    <div class="section-eyebrow reveal">THE PROBLEM</div>
+    <h2 class="section-title reveal">Your best games<br/><span class="grad-inline">vanish by Monday.</span></h2>
+    <p class="section-sub reveal">
+      You ball every week. The screamer into the top corner, the last-ditch block,
+      the shift where you carried the side. Then the group chat moves on — and there's
+      no proof it ever happened.
+    </p>
+
+    <div class="gone-row reveal">
+      <div class="gone-chip"><span class="gone-emoji">⚽</span><span class="gone-txt">That 30-yard screamer</span><span class="gone-tag">gone</span></div>
+      <div class="gone-chip"><span class="gone-emoji">🧤</span><span class="gone-txt">The save that won it</span><span class="gone-tag">gone</span></div>
+      <div class="gone-chip"><span class="gone-emoji">🔥</span><span class="gone-txt">Your MOTM shift</span><span class="gone-tag">gone</span></div>
+    </div>
+
+    <div class="problem-turn reveal">
+      <span class="turn-line">Not anymore.</span>
+      <p>Baller.ID turns every match into a permanent record — and a card that grows.
+      Verified by the players you ball with, so it's real. Not bragging.</p>
+    </div>
+  </section>
+
   <!-- Formation pitch section -->
   <section class="section" id="formation">
     <div class="section-eyebrow reveal">LIVE MATCH VIEW</div>
@@ -816,8 +942,10 @@
     <div class="pitch-wrap reveal">
       <div class="pitch-header">
         <div class="pitch-team a">YOUR TEAM</div>
-        <div class="pitch-formation"><b>6-a-side</b> · 2-2-1</div>
+        <div class="pitch-formation"><b>8-a-side</b> · 3-3-1</div>
       </div>
+
+      <div class="pitch-hint">✋ Hold &amp; drag a player — set your formation</div>
 
       <div class="pitch">
         <div class="pitch-grass"></div>
@@ -826,36 +954,42 @@
         <div class="pitch-arc top"></div>
         <div class="pitch-arc bottom"></div>
 
-        <!-- Single team — 6-a-side, 2-2-1 (GK + 2 DEF + 2 MID + 1 FWD) -->
-        <div class="mini gold" style="top: 12%; left: 50%; animation-delay:.05s">
-          <div class="mini-top"><div class="mini-rating">79</div><div class="mini-pos">GK</div></div>
-          <div class="mini-circle">CD</div>
-          <div class="mini-name">CHRIS</div>
+        <!-- Single team — 8-a-side, 3-3-1 (GK + 3 DEF + 3 MID + 1 FWD) -->
+        <!-- GK -->
+        <div class="dot silver" style="top: 11%; left: 50%; animation-delay:.05s">
+          <div class="dot-circle">1</div>
+          <div class="dot-name">CHRIS</div>
         </div>
-        <div class="mini silver" style="top: 36%; left: 28%; animation-delay:.15s">
-          <div class="mini-top"><div class="mini-rating">71</div><div class="mini-pos">DEF</div></div>
-          <div class="mini-circle">MD</div>
-          <div class="mini-name">MAX</div>
+        <!-- DEF -->
+        <div class="dot bronze" style="top: 33%; left: 24%; animation-delay:.12s">
+          <div class="dot-circle">2</div>
+          <div class="dot-name">ARJUN</div>
         </div>
-        <div class="mini gold" style="top: 36%; left: 72%; animation-delay:.22s">
-          <div class="mini-top"><div class="mini-rating">78</div><div class="mini-pos">DEF</div></div>
-          <div class="mini-circle">RM</div>
-          <div class="mini-name">RILEY</div>
+        <div class="dot silver" style="top: 33%; left: 50%; animation-delay:.18s">
+          <div class="dot-circle">4</div>
+          <div class="dot-name">MAX</div>
         </div>
-        <div class="mini elite" style="top: 60%; left: 28%; animation-delay:.3s">
-          <div class="mini-top"><div class="mini-rating">87</div><div class="mini-pos">MID</div></div>
-          <div class="mini-circle">SP</div>
-          <div class="mini-name">SAM</div>
+        <div class="dot gold" style="top: 33%; left: 76%; animation-delay:.24s">
+          <div class="dot-circle">5</div>
+          <div class="dot-name">RILEY</div>
         </div>
-        <div class="mini gold" style="top: 60%; left: 72%; animation-delay:.38s">
-          <div class="mini-top"><div class="mini-rating">82</div><div class="mini-pos">MID</div></div>
-          <div class="mini-circle">JR</div>
-          <div class="mini-name">JORDAN</div>
+        <!-- MID -->
+        <div class="dot silver" style="top: 57%; left: 24%; animation-delay:.30s">
+          <div class="dot-circle">7</div>
+          <div class="dot-name">NOAH</div>
         </div>
-        <div class="mini elite" style="top: 84%; left: 50%; animation-delay:.46s">
-          <div class="mini-top"><div class="mini-rating">91</div><div class="mini-pos">FWD</div></div>
-          <div class="mini-circle">AK</div>
-          <div class="mini-name">ALEX</div>
+        <div class="dot elite" style="top: 57%; left: 50%; animation-delay:.36s">
+          <div class="dot-circle">8<div class="dot-cap">C</div></div>
+          <div class="dot-name">SAM</div>
+        </div>
+        <div class="dot gold" style="top: 57%; left: 76%; animation-delay:.42s">
+          <div class="dot-circle">6</div>
+          <div class="dot-name">JORDAN</div>
+        </div>
+        <!-- FWD -->
+        <div class="dot elite" style="top: 81%; left: 50%; animation-delay:.48s">
+          <div class="dot-circle">9</div>
+          <div class="dot-name">ALEX</div>
         </div>
       </div>
 
@@ -874,7 +1008,17 @@
     <h2 class="section-title reveal">Earn it on the pitch.</h2>
     <p class="section-sub reveal">The card grows with you, match by match. Six steps from signup to elite.</p>
 
-    <div class="steps">
+    <div class="how-grid">
+      <div class="how-phone reveal">
+        <div class="phone-mock">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <img src="./screens/match.png" alt="Live match view in Baller.ID" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+            <div class="phone-ph" style="display:none"><span class="pi">⚽</span><strong>Match View</strong><small>save screens/match.png</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="steps">
       <div class="step reveal">
         <div class="step-num">01</div>
         <div class="step-body">
@@ -907,7 +1051,7 @@
         <div class="step-num">05</div>
         <div class="step-body">
           <h3>Drop the stats.</h3>
-          <p>Goals, assists, saves. Your team confirms it. Fakes get flagged. Truth wins.</p>
+          <p>Goals, assists, saves. Everyone rates the match — it counts once the team agrees, so two friends can't boost each other. Truth wins.</p>
         </div>
       </div>
       <div class="step reveal">
@@ -917,6 +1061,7 @@
           <p>Bronze → Silver → Gold → Elite. Every honest match shapes the card. You earn every step.</p>
         </div>
       </div>
+    </div>
     </div>
   </section>
 
@@ -1003,20 +1148,87 @@
     <div class="stat-big reveal"><div class="val">∞</div><div class="lbl">BRAGGING RIGHTS</div></div>
   </div>
 
+  <!-- Showcase — prototype screenshots -->
+  <section class="section showcase" id="showcase">
+    <div class="section-eyebrow reveal">SEE IT IN ACTION</div>
+    <h2 class="section-title reveal" style="margin:0 auto 12px;">The app, in your hands.</h2>
+    <p class="section-sub reveal" style="margin:0 auto 48px;">Set up a game in seconds — then watch your name climb your circle's leaderboard.</p>
+    <div class="phone-row reveal">
+      <div class="phone-mock">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <img src="./screens/new-match.png" alt="Set up a match in Baller.ID" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="phone-ph" style="display:none"><span class="pi">🗓️</span><strong>Set up a match</strong><small>save screens/new-match.png</small></div>
+        </div>
+      </div>
+      <div class="phone-mock">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <img src="./screens/leaderboard.png" alt="Baller.ID leaderboard" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="phone-ph" style="display:none"><span class="pi">🏆</span><strong>Leaderboard</strong><small>save screens/leaderboard.png</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq" id="faq">
+    <div class="faq-head">
+      <div class="section-eyebrow reveal">FAQ</div>
+      <h2 class="section-title reveal">Everything you want to know.</h2>
+    </div>
+    <div class="faq-list reveal">
+      <details class="faq-item">
+        <summary>Is Baller.ID free?<span class="faq-chev">▾</span></summary>
+        <div class="faq-a">Yes. Building your card, tracking your matches and climbing the ranks is free. No catch.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Does everyone who played need the app?<span class="faq-chev">▾</span></summary>
+        <div class="faq-a">The players confirm their own stats — that's what keeps your card honest instead of just talk. One person sets up the match; teammates join with a tap to verify what actually happened.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How do you stop people faking numbers?<span class="faq-chev">▾</span></summary>
+        <div class="faq-a">Your stats only count once your team agrees. Anyone who played can flag a number that looks off, and until it's sorted, nobody gets the points. Two mates can't just boost each other.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Is it only for 5-a-side?<span class="faq-chev">▾</span></summary>
+        <div class="faq-a">No. Baller.ID works for turf 5s, 6s, 7s, 8s and bigger — the pitch view lays out whatever format you play.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What is REP?<span class="faq-chev">▾</span></summary>
+        <div class="faq-a">ATK and DEF you score on the pitch. REP you earn — it's the trust your teammates give you for showing up and logging it straight. It's the one number you can't fake your way to.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Do I need to be a great player?<span class="faq-chev">▾</span></summary>
+        <div class="faq-a">No. The card rewards showing up, consistency and honesty as much as goals. Plenty of ballers build serious REP just by being reliable every week.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Is my data private?<span class="faq-chev">▾</span></summary>
+        <div class="faq-a">Your card is yours. Only positive recognition is ever public — we don't publish anything that puts you on blast. See our <a href="./privacy.html">Privacy Policy</a>.</div>
+      </details>
+    </div>
+  </section>
+
   <section class="final-cta" id="get-app">
     <h2>Ready to <span class="hero-title"><span class="grad">ball?</span></span></h2>
     <p class="hero-sub" style="margin: 0 auto 36px;">Download Baller.ID and start building your football identity today.</p>
-    <a href="https://play.google.com/store/apps/details?id=app.ballerid" target="_blank" rel="noopener">
-      <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" style="height:80px;display:block;margin:0 auto;" />
-    </a>
-    <div class="coming-soon">COMING SOON ON iOS</div>
+    <div class="store-row">
+      <a href="https://play.google.com/store/apps/details?id=app.ballerid" target="_blank" rel="noopener">
+        <img class="gp-badge" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" />
+      </a>
+      <a class="appstore-badge" href="https://apps.apple.com/app/id6795818143" target="_blank" rel="noopener" aria-label="Download on the App Store">
+        <svg class="apple" viewBox="0 0 384 512" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+        <span class="ab-text"><small>Download on the</small><strong>App Store</strong></span>
+      </a>
+    </div>
   </section>
 
   <footer>
     <div style="margin-bottom: 8px;">
+      <a href="./support.html">Support</a>
       <a href="./privacy.html">Privacy Policy</a>
       <a href="./delete-account.html">Delete Account</a>
-      <a href="mailto:noreply.ballerid@gmail.com">Contact</a>
+      <a href="mailto:support@ballerid.in">Contact</a>
     </div>
     <div>© 2026 Baller.ID · Built for ballers, by a baller.</div>
   </footer>
@@ -1058,6 +1270,43 @@
         window.scrollTo({ top: y, behavior: 'smooth' });
       });
     });
+
+    // Drag-to-reposition players on the pitch — mirrors the app's hold-and-drag
+    // formation planner. Pointer events cover both mouse and touch.
+    (function initFormationDrag() {
+      const pitch = document.querySelector('#formation .pitch');
+      if (!pitch) return;
+      const PAD = 26; // keep dots inside the touchline
+      pitch.querySelectorAll('.dot').forEach((dot) => {
+        let offX = 0, offY = 0, dragging = false;
+
+        dot.addEventListener('pointerdown', (e) => {
+          dragging = true;
+          dot.setPointerCapture(e.pointerId);
+          dot.style.animation = 'none';           // cancel entrance so it won't fight the drag
+          dot.classList.add('dragging');
+          const r = dot.getBoundingClientRect();
+          offX = e.clientX - (r.left + r.width / 2);
+          offY = e.clientY - (r.top + r.height / 2);
+          e.preventDefault();
+        });
+
+        dot.addEventListener('pointermove', (e) => {
+          if (!dragging) return;
+          const p = pitch.getBoundingClientRect();
+          let x = e.clientX - offX - p.left;
+          let y = e.clientY - offY - p.top;
+          x = Math.max(PAD, Math.min(p.width  - PAD, x));
+          y = Math.max(PAD, Math.min(p.height - PAD, y));
+          dot.style.left = (x / p.width  * 100) + '%';
+          dot.style.top  = (y / p.height * 100) + '%';
+        });
+
+        const end = () => { dragging = false; dot.classList.remove('dragging'); };
+        dot.addEventListener('pointerup', end);
+        dot.addEventListener('pointercancel', end);
+      });
+    })();
   </script>
 </body>
 </html>
