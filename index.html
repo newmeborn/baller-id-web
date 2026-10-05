@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Baller.ID — Your Football Identity</title>
-  <meta name="description" content="Track stats, build your player card, prove yourself on the pitch. Your digital football identity." />
+  <meta name="description" content="Set up your weekly turf game, split the turf money, and build a football player card your teammates confirm. Free on Android and iPhone." />
   <meta property="og:title" content="Baller.ID — Your Football Identity" />
-  <meta property="og:description" content="Track stats, build your player card, prove yourself on the pitch." />
+  <meta property="og:description" content="Set up your weekly turf game, split the turf money, and build a player card your teammates confirm." />
   <meta property="og:image" content="https://baller-id.netlify.app/app_icon.png" />
   <link rel="icon" href="./app_icon.png" />
   <style>
@@ -793,6 +793,154 @@
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
     .reveal.in { opacity: 1; transform: translateY(0); }
 
+    /* ---------- Problem → fix cards (why we built this) ---------- */
+    .pf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1040px; margin: 0 auto; text-align: left; }
+    @media (max-width: 900px) { .pf-grid { grid-template-columns: 1fr; max-width: 560px; } }
+    .pf-card {
+      display: flex; flex-direction: column;
+      border-radius: 20px; overflow: hidden;
+      background: var(--bg-2); border: 1px solid rgba(255,255,255,0.07);
+    }
+    .pf-top { padding: 22px 22px 18px; }
+    .pf-emoji { font-size: 24px; margin-bottom: 12px; display: block; }
+    .pf-q { font-size: 21px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 8px; }
+    .pf-pain { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .pf-fix {
+      flex: 1; padding: 18px 22px 22px;
+      background: linear-gradient(160deg, rgba(46,224,122,0.07), rgba(46,224,122,0.015));
+      border-top: 1px solid rgba(46,224,122,0.18);
+    }
+    .pf-fix-lbl { font-size: 10px; font-weight: 900; letter-spacing: 2px; color: var(--green); margin-bottom: 8px; }
+    .pf-fix p { font-size: 14px; color: #d8d1c8; line-height: 1.6; }
+
+    /* ---------- Feature split (text + visual) ---------- */
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    .split.flip .split-visual { order: -1; }
+    @media (max-width: 860px) {
+      .split { grid-template-columns: 1fr; gap: 36px; }
+      .split.flip .split-visual { order: 0; }
+    }
+    .new-pill {
+      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px;
+      padding: 5px 11px; border-radius: 999px;
+      background: var(--green-soft); border: 1px solid rgba(46,224,122,0.35);
+      color: var(--green); font-size: 10px; font-weight: 900; letter-spacing: 1.5px;
+    }
+    .new-pill i { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
+    .split .section-sub { margin-bottom: 28px; }
+    .why-note {
+      margin-top: 22px; padding: 14px 16px; border-radius: 12px;
+      border-left: 3px solid var(--green);
+      background: rgba(255,255,255,0.025);
+      font-size: 13.5px; color: #cfc8c0; line-height: 1.6;
+    }
+    .why-note b { color: var(--green); font-weight: 800; letter-spacing: 1px; font-size: 11px; display: block; margin-bottom: 4px; }
+
+    /* ---------- In-app mock panels ---------- */
+    .mock {
+      border-radius: 22px; padding: 20px;
+      background: linear-gradient(160deg, #15110d 0%, #0a0706 100%);
+      border: 1px solid rgba(46,224,122,0.18);
+      box-shadow: 0 40px 80px -30px rgba(0,0,0,0.8), 0 0 60px -20px rgba(46,224,122,0.2);
+      max-width: 420px; width: 100%; margin: 0 auto;
+    }
+    .mock-lbl { font-size: 10px; font-weight: 900; letter-spacing: 2px; color: var(--dim); margin-bottom: 10px; }
+    .mock-title { font-size: 16px; font-weight: 900; margin-bottom: 4px; }
+    .mock-sub { font-size: 12.5px; color: var(--muted); margin-bottom: 16px; }
+    .share-list { display: flex; flex-direction: column; gap: 8px; }
+    .share {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 11px 13px; border-radius: 12px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      font-size: 13.5px; font-weight: 700;
+    }
+    .share small { display: block; font-size: 11px; font-weight: 600; color: var(--dim); margin-top: 2px; }
+    .share-state { font-size: 10.5px; font-weight: 900; letter-spacing: 0.8px; padding: 4px 9px; border-radius: 999px; white-space: nowrap; }
+    .st-paid    { color: var(--green); background: rgba(46,224,122,0.10); border: 1px solid rgba(46,224,122,0.3); }
+    .st-claimed { color: #f2c35a; background: rgba(242,195,90,0.10); border: 1px solid rgba(242,195,90,0.3); }
+    .st-pending { color: var(--muted); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); }
+    .st-free    { color: #cdd6df; background: rgba(205,214,223,0.08); border: 1px solid rgba(205,214,223,0.22); }
+
+    /* WhatsApp message the app writes */
+    .wa {
+      margin-top: 16px; padding: 12px 14px 10px; border-radius: 12px 12px 12px 4px;
+      background: #1f2c25; border: 1px solid rgba(255,255,255,0.05);
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 12px; line-height: 1.55; color: #e3efe6; white-space: pre-line;
+    }
+    .wa-meta { display: block; text-align: right; font-family: -apple-system, 'Segoe UI', sans-serif; font-size: 10px; color: #8fa89a; margin-top: 4px; }
+    .wa-link { color: #6fd3ff; }
+
+    /* "Did you play?" ask */
+    .ask {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 14px; border-radius: 16px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 14px;
+    }
+    .ask-icon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; overflow: hidden; }
+    .ask-icon img { width: 100%; height: 100%; display: block; }
+    .ask-body { flex: 1; font-size: 13px; color: #d8d1c8; line-height: 1.5; }
+    .ask-body strong { display: block; color: var(--text); font-size: 13.5px; }
+    .ask-btns { display: flex; gap: 8px; margin-top: 10px; }
+    .ask-btns span { padding: 7px 14px; border-radius: 999px; font-size: 12px; font-weight: 800; }
+    .ask-yes { background: var(--green); color: #0a0706; }
+    .ask-no { border: 1px solid rgba(255,255,255,0.15); color: var(--muted); }
+    .score-box {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 18px; border-radius: 14px;
+      background: rgba(46,224,122,0.05); border: 1px solid rgba(46,224,122,0.18);
+    }
+    .score-side { font-size: 10px; font-weight: 900; letter-spacing: 1.5px; color: var(--muted); text-align: center; }
+    .score-num { font-size: 34px; font-weight: 900; letter-spacing: -1px; color: #fff; }
+    .score-dash { font-size: 22px; color: var(--dim); font-weight: 900; }
+    .mini-stats { display: flex; gap: 8px; margin-top: 12px; }
+    .mini-stats div { flex: 1; text-align: center; padding: 10px 6px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
+    .mini-stats b { display: block; font-size: 20px; font-weight: 900; }
+    .mini-stats span { font-size: 9.5px; font-weight: 800; letter-spacing: 1.2px; color: var(--dim); }
+
+    /* ---------- Point list (feature bullets) ---------- */
+    .points { display: flex; flex-direction: column; gap: 14px; }
+    .point { display: flex; gap: 14px; align-items: flex-start; }
+    .point-icon {
+      width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
+      background: var(--green-soft);
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+    }
+    .point h4 { font-size: 15px; font-weight: 800; letter-spacing: -0.2px; margin-bottom: 3px; }
+    .point p { font-size: 13.5px; color: var(--muted); line-height: 1.55; }
+
+    /* ---------- What grows the card ---------- */
+    .levers { display: flex; flex-direction: column; gap: 12px; }
+    .lever {
+      padding: 16px 18px; border-radius: 14px;
+      background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06);
+    }
+    .lever-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+    .lever-head h4 { font-size: 15.5px; font-weight: 900; }
+    .lever-weight { font-size: 10px; font-weight: 900; letter-spacing: 1.2px; color: var(--green); white-space: nowrap; }
+    .lever.low .lever-weight { color: var(--dim); }
+    .lever p { font-size: 13.5px; color: var(--muted); line-height: 1.55; }
+    .lever-bar { margin-top: 10px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.07); overflow: hidden; }
+    .lever-bar i { display: block; height: 100%; background: var(--green); box-shadow: 0 0 8px rgba(46,224,122,0.6); }
+    .lever.low .lever-bar i { background: rgba(255,255,255,0.35); box-shadow: none; }
+
+    /* ---------- Fair play rules ---------- */
+    .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+    .rule {
+      padding: 22px; border-radius: 18px;
+      background: linear-gradient(160deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .rule h3 { font-size: 16.5px; font-weight: 900; letter-spacing: -0.3px; margin: 10px 0 6px; }
+    .rule p { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+    .rule-icon { font-size: 20px; }
+    .promise {
+      margin: 36px auto 0; max-width: 680px; text-align: center;
+      font-size: 15px; color: #cfc8c0; line-height: 1.65;
+    }
+    .promise b { color: var(--green); }
+
     @media (max-width: 640px) {
       .hero { min-height: 88vh; padding-top: 40px; }
       .cta-row { flex-direction: column; width: 100%; max-width: 320px; }
@@ -817,8 +965,10 @@
       <div>Baller<span>.ID</span></div>
     </a>
     <div class="nav-links">
-      <a href="#how">How it Works</a>
-      <a href="#formation">Live View</a>
+      <a href="#problem">Why</a>
+      <a href="#how">How it works</a>
+      <a href="#money">Turf money</a>
+      <a href="#card">Your card</a>
       <a href="#faq">FAQ</a>
     </div>
     <a href="#get-app" class="nav-cta">Get the App</a>
@@ -832,8 +982,8 @@
           <span class="grad">earned on the pitch.</span>
         </h1>
         <p class="hero-sub">
-          Every match you play goes on the record. Build your card, climb the ranks,
-          and prove what kind of baller you really are — verified by the squad, impossible to fake.
+          Set up your weekly turf game, split the turf money, and keep a record of every match you play.
+          Your teammates confirm it, so your player card shows how you really play.
         </p>
         <div class="store-row">
           <a class="appstore-badge" href="https://apps.apple.com/app/id6795818143" target="_blank" rel="noopener" aria-label="Download on the App Store">
@@ -869,7 +1019,7 @@
       <div class="tier-path-head">
         <span class="tp-eyebrow">THE CLIMB</span>
         <h3 class="tp-title">Every match moves you up.</h3>
-        <p class="tp-sub">Start at Rookie. Earn your way to Elite — one honest game at a time. No shortcuts, no buying your way up.</p>
+        <p class="tp-sub">Everyone starts at Rookie. Play often, play fair, and your card moves up. Nobody can buy their way up.</p>
       </div>
       <div class="tier-track">
         <div class="tier-line"></div>
@@ -882,22 +1032,18 @@
         <div class="tier-node bronze">
           <div class="tn-dot">✱</div>
           <div class="tn-name">BRONZE</div>
-          <div class="tn-range">50–64</div>
         </div>
         <div class="tier-node silver">
           <div class="tn-dot">◆</div>
           <div class="tn-name">SILVER</div>
-          <div class="tn-range">65–74</div>
         </div>
         <div class="tier-node gold">
           <div class="tn-dot">★</div>
           <div class="tn-name">GOLD</div>
-          <div class="tn-range">75–84</div>
         </div>
         <div class="tier-node elite">
           <div class="tn-dot">✦</div>
           <div class="tn-name">ELITE</div>
-          <div class="tn-range">85+</div>
         </div>
       </div>
     </div>
@@ -905,39 +1051,67 @@
 
   <div class="marquee">
     <div class="marquee-inner">
-      <span>PLAY <span class="accent">●</span> TRACK <span class="accent">●</span> RANK <span class="accent">●</span> PROVE <span class="accent">●</span> REPEAT <span class="accent">●</span> PLAY <span class="accent">●</span> TRACK <span class="accent">●</span> RANK <span class="accent">●</span> PROVE <span class="accent">●</span> REPEAT <span class="accent">●</span></span>
-      <span>PLAY <span class="accent">●</span> TRACK <span class="accent">●</span> RANK <span class="accent">●</span> PROVE <span class="accent">●</span> REPEAT <span class="accent">●</span> PLAY <span class="accent">●</span> TRACK <span class="accent">●</span> RANK <span class="accent">●</span> PROVE <span class="accent">●</span> REPEAT <span class="accent">●</span></span>
+      <span>PLAY <span class="accent">●</span> LOG <span class="accent">●</span> SPLIT <span class="accent">●</span> CONFIRM <span class="accent">●</span> GROW <span class="accent">●</span> PLAY <span class="accent">●</span> LOG <span class="accent">●</span> SPLIT <span class="accent">●</span> CONFIRM <span class="accent">●</span> GROW <span class="accent">●</span></span>
+      <span>PLAY <span class="accent">●</span> LOG <span class="accent">●</span> SPLIT <span class="accent">●</span> CONFIRM <span class="accent">●</span> GROW <span class="accent">●</span> PLAY <span class="accent">●</span> LOG <span class="accent">●</span> SPLIT <span class="accent">●</span> CONFIRM <span class="accent">●</span> GROW <span class="accent">●</span></span>
     </div>
   </div>
 
   <!-- The problem — the wedge -->
   <section class="section problem" id="problem">
-    <div class="section-eyebrow reveal">THE PROBLEM</div>
-    <h2 class="section-title reveal">Your best games<br/><span class="grad-inline">vanish by Monday.</span></h2>
+    <div class="section-eyebrow reveal">WHY WE BUILT THIS</div>
+    <h2 class="section-title reveal">The game is fun.<br/><span class="grad-inline">Everything around it is a mess.</span></h2>
     <p class="section-sub reveal">
-      You ball every week. The screamer into the top corner, the last-ditch block,
-      the shift where you carried the side. Then the group chat moves on — and there's
-      no proof it ever happened.
+      If you play turf football with a group, you know this. The match takes an hour.
+      The WhatsApp chasing takes all week. We built Baller.ID to fix three things.
     </p>
 
-    <div class="gone-row reveal">
-      <div class="gone-chip"><span class="gone-emoji">⚽</span><span class="gone-txt">That 30-yard screamer</span><span class="gone-tag">gone</span></div>
-      <div class="gone-chip"><span class="gone-emoji">🧤</span><span class="gone-txt">The save that won it</span><span class="gone-tag">gone</span></div>
-      <div class="gone-chip"><span class="gone-emoji">🔥</span><span class="gone-txt">Your MOTM shift</span><span class="gone-tag">gone</span></div>
+    <div class="pf-grid">
+      <div class="pf-card reveal">
+        <div class="pf-top">
+          <span class="pf-emoji">🙋</span>
+          <div class="pf-q">“Who’s coming?”</div>
+          <p class="pf-pain">Fifty messages, a list everyone copies and pastes, and two people drop out on Sunday morning.</p>
+        </div>
+        <div class="pf-fix">
+          <div class="pf-fix-lbl">WHAT BALLER.ID DOES</div>
+          <p>One match link. Friends tap Join and pick a side. Teams lock 30 minutes before kick-off. Short of players? Ask players nearby who are free to play.</p>
+        </div>
+      </div>
+      <div class="pf-card reveal">
+        <div class="pf-top">
+          <span class="pf-emoji">💸</span>
+          <div class="pf-q">“Who paid?”</div>
+          <p class="pf-pain">One person books the turf, pays for everyone, and then spends the week chasing 14 people for ₹150 each.</p>
+        </div>
+        <div class="pf-fix">
+          <div class="pf-fix-lbl">WHAT BALLER.ID DOES</div>
+          <p>Add the turf cost. The app works out each share, writes the WhatsApp message for you, and keeps track of who has paid.</p>
+        </div>
+      </div>
+      <div class="pf-card reveal">
+        <div class="pf-top">
+          <span class="pf-emoji">📉</span>
+          <div class="pf-q">“Did that even happen?”</div>
+          <p class="pf-pain">Your best goal, the save that won it. By Monday the group chat has moved on, and there is no record of any of it.</p>
+        </div>
+        <div class="pf-fix">
+          <div class="pf-fix-lbl">WHAT BALLER.ID DOES</div>
+          <p>Every match goes on your record, and the people who played confirm it. Your player card grows from real games, not from what anyone claims.</p>
+        </div>
+      </div>
     </div>
 
     <div class="problem-turn reveal">
-      <span class="turn-line">Not anymore.</span>
-      <p>Baller.ID turns every match into a permanent record — and a card that grows.
-      Verified by the players you ball with, so it's real. Not bragging.</p>
+      <span class="turn-line">One app for the game, the money and the record.</span>
+      <p>Free to use. No money goes through Baller.ID. You pay each other the way you already do.</p>
     </div>
   </section>
 
   <!-- Formation pitch section -->
   <section class="section" id="formation">
-    <div class="section-eyebrow reveal">LIVE MATCH VIEW</div>
-    <h2 class="section-title reveal">Lineups, drawn the way you played them.</h2>
-    <p class="section-sub reveal">Drag, drop, swap. See every match as a pitch — your team, their team, who's on the field, and who's earning what.</p>
+    <div class="section-eyebrow reveal">THE MATCH, ON A PITCH</div>
+    <h2 class="section-title reveal">See who’s playing, and where.</h2>
+    <p class="section-sub reveal">Every match shows up as a pitch: who is on which side, and in what shape. The colour around each player is their card level. Try it — hold a player and move them.</p>
 
     <div class="pitch-wrap reveal">
       <div class="pitch-header">
@@ -958,7 +1132,7 @@
         <!-- GK -->
         <div class="dot silver" style="top: 11%; left: 50%; animation-delay:.05s">
           <div class="dot-circle">1</div>
-          <div class="dot-name">CHRIS</div>
+          <div class="dot-name">ROHAN</div>
         </div>
         <!-- DEF -->
         <div class="dot bronze" style="top: 33%; left: 24%; animation-delay:.12s">
@@ -967,37 +1141,37 @@
         </div>
         <div class="dot silver" style="top: 33%; left: 50%; animation-delay:.18s">
           <div class="dot-circle">4</div>
-          <div class="dot-name">MAX</div>
+          <div class="dot-name">KABIR</div>
         </div>
         <div class="dot gold" style="top: 33%; left: 76%; animation-delay:.24s">
           <div class="dot-circle">5</div>
-          <div class="dot-name">RILEY</div>
+          <div class="dot-name">VIKRAM</div>
         </div>
         <!-- MID -->
         <div class="dot silver" style="top: 57%; left: 24%; animation-delay:.30s">
           <div class="dot-circle">7</div>
-          <div class="dot-name">NOAH</div>
+          <div class="dot-name">SAHIL</div>
         </div>
         <div class="dot elite" style="top: 57%; left: 50%; animation-delay:.36s">
           <div class="dot-circle">8<div class="dot-cap">C</div></div>
-          <div class="dot-name">SAM</div>
+          <div class="dot-name">ANUJ</div>
         </div>
         <div class="dot gold" style="top: 57%; left: 76%; animation-delay:.42s">
           <div class="dot-circle">6</div>
-          <div class="dot-name">JORDAN</div>
+          <div class="dot-name">DEV</div>
         </div>
         <!-- FWD -->
         <div class="dot elite" style="top: 81%; left: 50%; animation-delay:.48s">
           <div class="dot-circle">9</div>
-          <div class="dot-name">ALEX</div>
+          <div class="dot-name">ADITYA</div>
         </div>
       </div>
 
       <div class="pitch-legend">
-        <span class="legend-dot"><i style="background:var(--t-elite)"></i>ELITE 85+</span>
-        <span class="legend-dot"><i style="background:var(--t-gold)"></i>GOLD 75+</span>
-        <span class="legend-dot"><i style="background:var(--t-silver)"></i>SILVER 65+</span>
-        <span class="legend-dot"><i style="background:var(--t-bronze)"></i>BRONZE 50+</span>
+        <span class="legend-dot"><i style="background:var(--t-elite)"></i>ELITE</span>
+        <span class="legend-dot"><i style="background:var(--t-gold)"></i>GOLD</span>
+        <span class="legend-dot"><i style="background:var(--t-silver)"></i>SILVER</span>
+        <span class="legend-dot"><i style="background:var(--t-bronze)"></i>BRONZE</span>
         <span class="legend-dot"><i style="background:var(--t-rookie)"></i>ROOKIE</span>
       </div>
     </div>
@@ -1005,8 +1179,8 @@
 
   <section class="section" id="how" style="scroll-margin-top: 80px;">
     <div class="section-eyebrow reveal">HOW IT WORKS</div>
-    <h2 class="section-title reveal">Earn it on the pitch.</h2>
-    <p class="section-sub reveal">The card grows with you, match by match. Six steps from signup to elite.</p>
+    <h2 class="section-title reveal">From the group chat to your card.</h2>
+    <p class="section-sub reveal">One match, start to finish. You keep using WhatsApp — Baller.ID just does the boring parts.</p>
 
     <div class="how-grid">
       <div class="how-phone reveal">
@@ -1022,137 +1196,263 @@
       <div class="step reveal">
         <div class="step-num">01</div>
         <div class="step-body">
-          <h3>Create your account.</h3>
-          <p>Sign up with email. Name yourself. Pick your position. 30 seconds and your card exists.</p>
+          <h3>Make your card.</h3>
+          <p>Sign up, add your name and your position. Takes 30 seconds.</p>
         </div>
       </div>
       <div class="step reveal">
         <div class="step-num">02</div>
         <div class="step-body">
-          <h3>Set the match.</h3>
-          <p>Pick a date, pick a turf. Drop the link in the group chat.</p>
+          <h3>Set up a match.</h3>
+          <p>Pick a date and a turf. Add the turf cost if you want to split it. Share the link on WhatsApp.</p>
         </div>
       </div>
       <div class="step reveal">
         <div class="step-num">03</div>
         <div class="step-body">
-          <h3>Squad up.</h3>
-          <p>Your squad taps in, picks a side, locks it down. Add them to your locker room while you're at it.</p>
+          <h3>Your friends join.</h3>
+          <p>They tap the link, join and pick a side. Teams lock 30 minutes before kick-off, so the list is who actually played.</p>
         </div>
       </div>
       <div class="step reveal">
         <div class="step-num">04</div>
         <div class="step-body">
-          <h3>Run the match.</h3>
-          <p>Real pitch, real legs. Play your game — we'll be here when you're done.</p>
+          <h3>Play the match.</h3>
+          <p>Real turf, real game. We’ll be here when you finish.</p>
         </div>
       </div>
       <div class="step reveal">
         <div class="step-num">05</div>
         <div class="step-body">
-          <h3>Drop the stats.</h3>
-          <p>Goals, assists, saves. Everyone rates the match — it counts once the team agrees, so two friends can't boost each other. Truth wins.</p>
+          <h3>Add stats and vote.</h3>
+          <p>Goals, assists, saves — your team confirms them. Then one tap for the best player, and one tap for who you would play with again.</p>
         </div>
       </div>
       <div class="step reveal">
         <div class="step-num">06</div>
         <div class="step-body">
-          <h3>Watch yourself level.</h3>
-          <p>Bronze → Silver → Gold → Elite. Every honest match shapes the card. You earn every step.</p>
+          <h3>Watch your card grow.</h3>
+          <p>When a teammate confirms your match, your card moves and you get a notification. Rookie, Bronze, Silver, Gold, Elite — every honest match moves you up.</p>
         </div>
       </div>
     </div>
     </div>
   </section>
 
-  <!-- ── REP section ─────────────────────────────────────────────────────── -->
-  <section class="section rep-section">
-    <div class="rep-grid">
-      <div class="rep-intro">
-        <div class="section-eyebrow reveal">THE THIRD COLUMN</div>
-        <h2 class="section-title reveal">ATK and DEF you score.<br/><span class="grad-inline">REP you <em>earn</em>.</span></h2>
+  <!-- ── Turf money (cost split) ─────────────────────────────────────────── -->
+  <section class="section" id="money" style="scroll-margin-top: 80px;">
+    <div class="split">
+      <div>
+        <div class="new-pill reveal"><i></i>NEW · TURF MONEY</div>
+        <h2 class="section-title reveal">Split the turf.<br/><span class="grad-inline">Stop chasing people.</span></h2>
         <p class="section-sub reveal">
-          Anyone can have a good match. Few can be the player everyone trusts to log it straight, week after week.
-          That's what <b>REP</b> measures — and it's the column that can't be padded.
+          Whoever books the turf usually pays first, then chases everyone on WhatsApp for days.
+          Baller.ID keeps that list for you, so nobody has to be the bad guy.
         </p>
-
-        <div class="rep-bullets">
-          <div class="rep-bullet reveal">
-            <div class="rep-bullet-icon">🤝</div>
-            <div>
-              <h4>Show up. Repeatedly.</h4>
-              <p>Consistency over heroics. The ballers who turn up every weekend build it faster than the ones who score five and ghost.</p>
-            </div>
+        <div class="points">
+          <div class="point reveal">
+            <div class="point-icon">₹</div>
+            <div><h4>Add the cost once.</h4><p>Everyone sees their share before they join — “₹2,100 turf · about ₹150 each”. It updates as people join or drop out.</p></div>
           </div>
-          <div class="rep-bullet reveal">
-            <div class="rep-bullet-icon">✍️</div>
-            <div>
-              <h4>Log your stats. Honestly.</h4>
-              <p>Submit what actually happened — not what you wish happened. Your teammates see every number before it counts.</p>
-            </div>
+          <div class="point reveal">
+            <div class="point-icon">💬</div>
+            <div><h4>The WhatsApp message writes itself.</h4><p>One tap sends the group who has paid and who hasn’t. No more copy-pasting lists.</p></div>
           </div>
-          <div class="rep-bullet reveal">
-            <div class="rep-bullet-icon">✓</div>
-            <div>
-              <h4>Get confirmed. Stay clean.</h4>
-              <p>Every match your team verifies adds to it. Get flagged for inflating numbers and it drops just as fast.</p>
-            </div>
+          <div class="point reveal">
+            <div class="point-icon">🤝</div>
+            <div><h4>“I paid” → “Got it”.</h4><p>A friend taps <i>I paid</i>. The person who booked taps <i>Got it</i> when the money comes in. Nobody is marked paid on their own word.</p></div>
           </div>
+          <div class="point reveal">
+            <div class="point-icon">👥</div>
+            <div><h4>Friends not on the app? Add them by name.</h4><p>They are only in the money split, nothing else. The keeper can play free too — one tap.</p></div>
+          </div>
+          <div class="point reveal">
+            <div class="point-icon">🔔</div>
+            <div><h4>Reminders and no-show fines, if you want them.</h4><p>Remind who hasn’t paid with one tap, once a day. If someone doesn’t turn up, the organiser can add a fine. It always shows as its own line, never hidden.</p></div>
+          </div>
+        </div>
+        <div class="why-note reveal">
+          <b>NO MONEY GOES THROUGH BALLER.ID</b>
+          You pay each other the way you already do — UPI or cash. We just keep the list, and we take nothing from it.
         </div>
       </div>
 
-      <!-- Visual side: ATK / DEF / REP column with REP glowing -->
-      <div class="rep-visual reveal">
-        <div class="rep-stat dim">
-          <div class="rep-stat-num">96</div>
-          <div class="rep-stat-lbl">ATK</div>
-          <div class="rep-stat-bar"><i style="width:96%"></i></div>
-          <div class="rep-stat-note">earned in the box</div>
+      <div class="split-visual reveal">
+        <div class="mock">
+          <div class="mock-lbl">SPLIT THE TURF COST</div>
+          <div class="mock-title">₹2,100 turf · ₹150 each</div>
+          <div class="mock-sub">Booked by Anuj · tap a name when their money comes in</div>
+          <div class="share-list">
+            <div class="share"><div>Arjun</div><span class="share-state st-paid">✓ PAID</span></div>
+            <div class="share"><div>Rohan<small>Says he paid ₹150</small></div><span class="share-state st-claimed">GOT IT?</span></div>
+            <div class="share"><div>Kabir<small>₹150 + ₹50 no-show fine</small></div><span class="share-state st-pending">₹200 DUE</span></div>
+            <div class="share"><div>Vikram<small>Keeper</small></div><span class="share-state st-free">PLAYS FREE</span></div>
+          </div>
+          <div class="wa">Sector 29 turf · Sun 12 Oct
+₹2,100 ÷ 14 = ₹150 each
+
+⏳ Pending
+• Rohan — ₹150
+• Kabir — ₹200 (incl. ₹50 fine)
+
+✅ Paid
+• Arjun, Sahil, Dev, Aditya …
+
+🎁 Free this time
+• Vikram
+
+Mark yours paid → <span class="wa-link">baller-id.netlify.app/join/…</span><span class="wa-meta">Sent from Baller.ID · 9:42 PM</span></div>
         </div>
-        <div class="rep-stat dim">
-          <div class="rep-stat-num">72</div>
-          <div class="rep-stat-lbl">DEF</div>
-          <div class="rep-stat-bar"><i style="width:72%"></i></div>
-          <div class="rep-stat-note">earned at the back</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Log a match you already played ──────────────────────────────────── -->
+  <section class="section" id="log" style="scroll-margin-top: 80px;">
+    <div class="split flip">
+      <div>
+        <div class="new-pill reveal"><i></i>NEW · LOG A MATCH</div>
+        <h2 class="section-title reveal">Didn’t set it up?<br/><span class="grad-inline">Log it after.</span></h2>
+        <p class="section-sub reveal">
+          Most games are planned in WhatsApp, not in an app. That’s fine. After the final whistle,
+          add the match in about a minute: the score, who played, and your goals and assists.
+        </p>
+        <div class="points">
+          <div class="point reveal">
+            <div class="point-icon">🙋</div>
+            <div><h4>Your teammates get asked: “Did you play?”</h4><p>The match counts once one of them says yes. One person’s word alone is not a record.</p></div>
+          </div>
+          <div class="point reveal">
+            <div class="point-icon">↩️</div>
+            <div><h4>Made a mistake? Undo it.</h4><p>You can take it back while it is still only your word — before anyone has backed it.</p></div>
+          </div>
+          <div class="point reveal">
+            <div class="point-icon">₹</div>
+            <div><h4>Split the turf in the same step.</h4><p>The cost and the players are already known, so the split takes one tap.</p></div>
+          </div>
         </div>
-        <div class="rep-stat hi">
-          <div class="rep-stat-num">88</div>
-          <div class="rep-stat-lbl">REP</div>
-          <div class="rep-stat-bar"><i style="width:88%"></i></div>
-          <div class="rep-stat-note">earned in the group chat</div>
+        <div class="why-note reveal">
+          <b>WHY IT WORKS THIS WAY</b>
+          Anyone can type “I scored 3”. A record only means something when someone who was there says it’s true. That is the rule for everything on Baller.ID.
+        </div>
+      </div>
+
+      <div class="split-visual reveal">
+        <div class="mock">
+          <div class="ask">
+            <div class="ask-icon"><img src="./app_icon.png" alt="" /></div>
+            <div class="ask-body">
+              <strong>Did you play Sunday?</strong>
+              Anuj logged “Sunday 7 AM” and put you in it. Tap I played, then add your stats.
+              <div class="ask-btns"><span class="ask-yes">I played</span></div>
+            </div>
+          </div>
+          <div class="mock-lbl">YOUR MATCH</div>
+          <div class="score-box">
+            <div class="score-side">MY SIDE<div class="score-num">5</div></div>
+            <div class="score-dash">–</div>
+            <div class="score-side">OTHER SIDE<div class="score-num">3</div></div>
+          </div>
+          <div class="mini-stats">
+            <div><b>2</b><span>GOALS</span></div>
+            <div><b>1</b><span>ASSISTS</span></div>
+            <div><b>0</b><span>SAVES</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── What grows the card ─────────────────────────────────────────────── -->
+  <section class="section" id="card" style="scroll-margin-top: 80px;">
+    <div class="split">
+      <div>
+        <div class="section-eyebrow reveal">YOUR PLAYER CARD</div>
+        <h2 class="section-title reveal">Goals help.<br/><span class="grad-inline">Being wanted back helps more.</span></h2>
+        <p class="section-sub reveal">
+          Anyone can type a number. So your card is not built from what you say about yourself —
+          it is built from what the people you played with say about you.
+        </p>
+        <div class="why-note reveal">
+          <b>ON THE FRONT: ATK · DEF · REP</b>
+          Attack comes from goals and assists. Defence from saves and clean sheets. Rep comes from showing up and playing it straight. Turn the card over to see exactly what built your rating.
+        </div>
+      </div>
+
+      <div class="split-visual">
+        <div class="levers">
+          <div class="lever reveal">
+            <div class="lever-head"><h4>👍 Wanted back</h4><span class="lever-weight">MATTERS MOST</span></div>
+            <p>After every match, your team says whether they would play with you again. Nobody sees who said what. Be someone people want on their side.</p>
+            <div class="lever-bar"><i style="width:100%"></i></div>
+          </div>
+          <div class="lever reveal">
+            <div class="lever-head"><h4>📅 Showing up</h4><span class="lever-weight">MATTERS A LOT</span></div>
+            <p>Every match you play adds to this, and playing every week adds more. The most reliable way to climb.</p>
+            <div class="lever-bar"><i style="width:85%"></i></div>
+          </div>
+          <div class="lever reveal">
+            <div class="lever-head"><h4>🏅 Peer votes</h4><span class="lever-weight">SLOW TO EARN</span></div>
+            <p>Win Man of the Match, or get voted the best in your position. Slow to earn — that is what makes it worth having.</p>
+            <div class="lever-bar"><i style="width:55%"></i></div>
+          </div>
+          <div class="lever low reveal">
+            <div class="lever-head"><h4>⚽ Match stats</h4><span class="lever-weight">MATTERS LEAST</span></div>
+            <p>Goals, assists and saves fill your card and the leaderboards. They move your rating the least, because only you can report them.</p>
+            <div class="lever-bar"><i style="width:28%"></i></div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Ritual callout -->
+    <!-- After-match callout -->
     <div class="ritual reveal">
-      <div class="ritual-eyebrow">THE POST-MATCH RITUAL</div>
+      <div class="ritual-eyebrow">AFTER THE FINAL WHISTLE</div>
       <p class="ritual-body">
-        Final whistle. Boots off. Phone out.
+        Boots off. Phone out.
         <br/>
-        Open Baller.ID before you open the group chat.
+        Two minutes on Baller.ID, then the group chat.
       </p>
       <p class="ritual-foot">
-        Log what you did. Confirm what your squad did. That two-minute ritual is where REP is built —
-        and where the squad's leaderboard quietly decides who actually carried the match.
+        Add your stats, confirm your teammates’ stats, and vote for the best player.
+        When a teammate confirms your match, your card moves — and you get a notification so you see it happen.
       </p>
       <div class="ritual-reward">
-        <span class="ritual-spark">✦</span> Seasons, leaderboards, and rewards lean on REP. Treat it like your name.
+        <span class="ritual-spark">✦</span> Move up to a new level and the app marks the moment.
       </div>
     </div>
+  </section>
+
+  <!-- ── Fair play ───────────────────────────────────────────────────────── -->
+  <section class="section" id="fair" style="scroll-margin-top: 80px;">
+    <div class="section-eyebrow reveal">FAIR PLAY</div>
+    <h2 class="section-title reveal">Built so nobody can fake it.</h2>
+    <p class="section-sub reveal">A card is only worth something if it is true. These rules are why you can trust what you see on someone’s card.</p>
+    <div class="rules">
+      <div class="rule reveal"><div class="rule-icon">✅</div><h3>Stats count once your team agrees.</h3><p>Your numbers stay pending until enough teammates add theirs. One person cannot decide the match alone.</p></div>
+      <div class="rule reveal"><div class="rule-icon">🧾</div><h3>An organiser cannot make up a result.</h3><p>Every player marks themselves as playing and adds their own stats. A score with nobody behind it does not count.</p></div>
+      <div class="rule reveal"><div class="rule-icon">🚩</div><h3>Fake numbers get flagged.</h3><p>Anyone on your team can flag a stat, and the captain decides. Until it is settled, nobody gets the points.</p></div>
+      <div class="rule reveal"><div class="rule-icon">🗳️</div><h3>Votes need the team.</h3><p>Votes count once enough of the team agrees — so two friends cannot boost each other.</p></div>
+      <div class="rule reveal"><div class="rule-icon">🔒</div><h3>Teams lock before kick-off.</h3><p>No changes in the last 30 minutes. Whoever is on the list is who played.</p></div>
+      <div class="rule reveal"><div class="rule-icon">🗓️</div><h3>Four matches a week per organiser.</h3><p>Nobody can create fake matches just to collect points.</p></div>
+    </div>
+    <p class="promise reveal">
+      And no big promises. <b>No trials, no “get scouted”, no paid anything.</b>
+      Just a true record of the football you actually play.
+    </p>
   </section>
 
   <div class="stats-strip">
-    <div class="stat-big reveal"><div class="val">100%</div><div class="lbl">FREE TO USE</div></div>
-    <div class="stat-big reveal"><div class="val">1</div><div class="lbl">MINUTE TO SIGN UP</div></div>
-    <div class="stat-big reveal"><div class="val">∞</div><div class="lbl">BRAGGING RIGHTS</div></div>
+    <div class="stat-big reveal"><div class="val">Free</div><div class="lbl">TO USE</div></div>
+    <div class="stat-big reveal"><div class="val">30s</div><div class="lbl">TO MAKE YOUR CARD</div></div>
+    <div class="stat-big reveal"><div class="val">₹0</div><div class="lbl">TAKEN FROM YOUR TURF MONEY</div></div>
   </div>
 
   <!-- Showcase — prototype screenshots -->
   <section class="section showcase" id="showcase">
     <div class="section-eyebrow reveal">SEE IT IN ACTION</div>
     <h2 class="section-title reveal" style="margin:0 auto 12px;">The app, in your hands.</h2>
-    <p class="section-sub reveal" style="margin:0 auto 48px;">Set up a game in seconds — then watch your name climb your circle's leaderboard.</p>
+    <p class="section-sub reveal" style="margin:0 auto 48px;">Set up a game in seconds, then see where you rank among the people you play with.</p>
     <div class="phone-row reveal">
       <div class="phone-mock">
         <div class="phone-notch"></div>
@@ -1180,27 +1480,35 @@
     <div class="faq-list reveal">
       <details class="faq-item">
         <summary>Is Baller.ID free?<span class="faq-chev">▾</span></summary>
-        <div class="faq-a">Yes. Building your card, tracking your matches and climbing the ranks is free. No catch.</div>
+        <div class="faq-a">Yes. Your card, your matches and the turf money split are all free. You will see a few ads in the app — that is how we keep it free. There are never ads on the money screens.</div>
       </details>
       <details class="faq-item">
-        <summary>Does everyone who played need the app?<span class="faq-chev">▾</span></summary>
-        <div class="faq-a">The players confirm their own stats — that's what keeps your card honest instead of just talk. One person sets up the match; teammates join with a tap to verify what actually happened.</div>
+        <summary>Does money go through Baller.ID?<span class="faq-chev">▾</span></summary>
+        <div class="faq-a">No. You pay each other the way you already do, by UPI or cash. Baller.ID only keeps the list of who owes what and who has paid. We never take a cut.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Do all my friends need the app?<span class="faq-chev">▾</span></summary>
+        <div class="faq-a">For the money, no — add friends who are not on the app by name, and they are part of the split. For stats and cards, yes. A match only counts when people who played back it up, and they need the app to do that. One person sets up the match; everyone else joins with a tap.</div>
+      </details>
+      <details class="faq-item">
+        <summary>We played but nobody created the match. Can I still add it?<span class="faq-chev">▾</span></summary>
+        <div class="faq-a">Yes. Use “Log a match” after the game. Add the score, who played and your stats. The people you add get asked if they played, and the match counts once one of them says yes.</div>
       </details>
       <details class="faq-item">
         <summary>How do you stop people faking numbers?<span class="faq-chev">▾</span></summary>
-        <div class="faq-a">Your stats only count once your team agrees. Anyone who played can flag a number that looks off, and until it's sorted, nobody gets the points. Two mates can't just boost each other.</div>
+        <div class="faq-a">Your stats only count once your team agrees. Anyone who played can flag a number that looks wrong, and until it is settled, nobody gets the points. Votes also need enough of the team, so two friends cannot boost each other.</div>
       </details>
       <details class="faq-item">
         <summary>Is it only for 5-a-side?<span class="faq-chev">▾</span></summary>
         <div class="faq-a">No. Baller.ID works for turf 5s, 6s, 7s, 8s and bigger — the pitch view lays out whatever format you play.</div>
       </details>
       <details class="faq-item">
-        <summary>What is REP?<span class="faq-chev">▾</span></summary>
-        <div class="faq-a">ATK and DEF you score on the pitch. REP you earn — it's the trust your teammates give you for showing up and logging it straight. It's the one number you can't fake your way to.</div>
+        <summary>What do ATK, DEF and REP mean?<span class="faq-chev">▾</span></summary>
+        <div class="faq-a">Attack comes from goals and assists. Defence comes from saves and clean sheets. Rep comes from showing up and playing it straight. Turn your card over in the app to see exactly what built your rating.</div>
       </details>
       <details class="faq-item">
         <summary>Do I need to be a great player?<span class="faq-chev">▾</span></summary>
-        <div class="faq-a">No. The card rewards showing up, consistency and honesty as much as goals. Plenty of ballers build serious REP just by being reliable every week.</div>
+        <div class="faq-a">No. Showing up every week and being someone people want to play with again matter more than goals. A reliable player who never scores can still climb.</div>
       </details>
       <details class="faq-item">
         <summary>Is my data private?<span class="faq-chev">▾</span></summary>
@@ -1210,8 +1518,8 @@
   </section>
 
   <section class="final-cta" id="get-app">
-    <h2>Ready to <span class="hero-title"><span class="grad">ball?</span></span></h2>
-    <p class="hero-sub" style="margin: 0 auto 36px;">Download Baller.ID and start building your football identity today.</p>
+    <h2>Ready for <span class="hero-title"><span class="grad">Sunday?</span></span></h2>
+    <p class="hero-sub" style="margin: 0 auto 36px;">Make your card in 30 seconds and set up your next game. Free on Android and iPhone.</p>
     <div class="store-row">
       <a href="https://play.google.com/store/apps/details?id=app.ballerid" target="_blank" rel="noopener">
         <img class="gp-badge" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" />
