@@ -1,0 +1,11 @@
+{
+  "ios": {
+    "latest": "1.0.10",
+    "url": "https://apps.apple.com/app/id6795818143"
+  },
+  "android": {
+    "latest": "1.0.10",
+    "url": "https://play.google.com/store/apps/details?id=app.ballerid"
+  },
+  "message": "The new card reveal, logging matches you already played, and turf cost splitting are here. Update to get them."
+}

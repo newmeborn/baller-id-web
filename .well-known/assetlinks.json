@@ -5,6 +5,8 @@
       "namespace": "android_app",
       "package_name": "app.ballerid",
       "sha256_cert_fingerprints": [
+        "93:1C:84:A0:89:70:0E:CC:21:6D:A1:05:0B:1B:4D:C5:11:9B:9D:0A:FC:0B:7E:B8:D8:E4:2F:A6:C4:56:FF:C8",
+        "FD:D8:8D:64:3A:E7:12:F0:9A:A8:36:A7:FF:F6:E9:49:96:74:86:EF:9A:F7:D7:0E:74:5F:BB:36:2D:E0:8F:89",
         "B5:4D:EE:25:95:78:EE:A5:4D:9D:CD:0C:B7:39:AF:C7:03:47:55:DC:4D:89:23:1D:2E:97:23:0C:82:39:98:CF"
       ]
     }
